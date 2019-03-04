@@ -1,0 +1,26 @@
+
+/admin
+    zarządzanie użytkownikami, grupami itd z poziomu przeglądarki
+
+/api/
+    /login
+        POST    - logowanie
+            200 - OK, zwracane ciasteczko z sesją
+            401 - złe dane
+    
+    /logout
+        GET     - wylogowanie
+        
+    /me
+        GET     - informcja o uzytkowniku
+        POST    - edycja danych uzytkownika
+        DELETE  - usuniecie uzytkownika
+        
+    /user
+        GET     - lista uzytkownikow
+        PUT     - nowy użytkownik
+        /:ID
+            GET     - informcja o uzytkowniku
+
+    /group
+        [do przemyslenia]
