@@ -1,20 +1,21 @@
 
-/admin
+/panel
     zarządzanie użytkownikami, grupami itd z poziomu przeglądarki
+    /register   - rejestracja użytkownika
 
 /api/
     /login
         POST    - logowanie
             200 - OK, zwracane ciasteczko z sesją
             401 - złe dane
-    
-    /logout
-        GET     - wylogowanie
-        
+
     /me
         GET     - informcja o uzytkowniku
         POST    - edycja danych uzytkownika
         DELETE  - usuniecie uzytkownika
+
+    /logout
+        GET     - wylogowanie
         
     /user
         GET     - lista uzytkownikow
@@ -22,5 +23,13 @@
         /:ID
             GET     - informcja o uzytkowniku
 
+
     /group
         [do przemyslenia]
+        /?
+
+
+    /localization
+        GET    - pobiera lokalizacje wszystkich uzytkownikow
+        PUT   - wysyla wlasna lokalizacje na serwer
+
