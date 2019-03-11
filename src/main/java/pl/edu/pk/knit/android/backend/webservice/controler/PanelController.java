@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.pk.knit.android.backend.webservice.model.User;
 import pl.edu.pk.knit.android.backend.webservice.model.UserDto;
 import pl.edu.pk.knit.android.backend.webservice.service.UserService;
@@ -38,14 +35,21 @@ public class PanelController {
     public String processRegistrationForm(
             @ModelAttribute("UserDto") UserDto userDto,
             BindingResult theBindingResult,
-            Model theModel) {
+            Model theModel,
+            @RequestParam(name="secret") String secret) {
+
+        if(!secret.equals("2626+56513215621afcsa")){
+            theModel.addAttribute("registrationError", "Invalid secret.");
+            return "registration-form";
+        }
+
 
         String userName = userDto.getUsername();
 
         // check the database if user already exists
         User existing = userService.getUserByName(userName);
         if (existing != null){
-            theModel.addAttribute("crmUser", new UserDto());
+            theModel.addAttribute("user-details", new UserDto());
             theModel.addAttribute("registrationError", "User name already exists.");
             return "registration-form";
         }

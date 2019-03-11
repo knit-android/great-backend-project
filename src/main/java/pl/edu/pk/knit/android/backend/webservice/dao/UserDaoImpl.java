@@ -34,7 +34,6 @@ public class UserDaoImpl implements UserDao {
         Query query =  entityManager.createQuery("from User where username=:name", User.class);
         query.setParameter("name", username);
 
-
         List<Query> results = query.getResultList();
         if(results.size() == 0)
             return null;

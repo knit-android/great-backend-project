@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -35,15 +36,16 @@ public class User implements UserDetails {
   @Getter @Setter
   private boolean enabled;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
           name = "security_users_to_roles",
           joinColumns = @JoinColumn(name = "user_id"),
           inverseJoinColumns = @JoinColumn(name = "security_role_id")
   )
   @Getter @Setter
-  @JsonIgnore
   private List<SecurityRole> securityRoles;
+
+
 
   public User(User user) {
     this.userId = user.userId;
@@ -53,8 +55,20 @@ public class User implements UserDetails {
   }
 
   @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+  @JsonIgnore
+  public Collection<GrantedAuthority> getAuthorities() {
+    List<GrantedAuthority> authorities = new ArrayList<>();
+
+    for(SecurityRole role : securityRoles){
+
+      authorities.add(role);
+
+      for(SecurityPrivilege priv : role.getPrivileges())
+        authorities.add(priv);
+
+    }
+
+    return authorities;
   }
 
   @Override

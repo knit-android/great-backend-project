@@ -1,6 +1,8 @@
 package pl.edu.pk.knit.android.backend.webservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -9,7 +11,7 @@ import java.util.Collection;
 @Table(name = "security_roles")
 @ToString @EqualsAndHashCode
 @AllArgsConstructor @NoArgsConstructor
-public class SecurityRole {
+public class SecurityRole implements GrantedAuthority {
 
   @Id
   @Column(name = "security_role_id")
@@ -27,4 +29,10 @@ public class SecurityRole {
       inverseJoinColumns = @JoinColumn(name = "security_privilege_id"))
   @Getter @Setter
   private Collection<SecurityPrivilege> privileges;
+
+  @Override
+  @JsonIgnore
+  public String getAuthority() {
+    return name;
+  }
 }

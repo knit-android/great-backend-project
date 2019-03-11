@@ -38,9 +38,12 @@
 
             <div style="padding-top: 30px" class="panel-body">
 
+                <th:block th:text="${registrationError}"></th:block>
+
 
 
                 <form action="/panel/register" th:object="${UserDto}" method="post">
+                    Secret <input type="text" name="secret" /><br/>
                     Username <input type="text" th:field="*{username}" /><br/>
                     Password <input type="password" th:field="*{password}"/><br/>
                     <input type="submit" value="Register"/>

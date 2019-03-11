@@ -4,12 +4,7 @@
     /register   - rejestracja użytkownika
 
 /api/
-    /login
-        POST    - logowanie
-            200 - OK, zwracane ciasteczko z sesją
-            401 - złe dane
-
-    /me
+    /whoami
         GET     - informcja o uzytkowniku
         POST    - edycja danych uzytkownika
         DELETE  - usuniecie uzytkownika

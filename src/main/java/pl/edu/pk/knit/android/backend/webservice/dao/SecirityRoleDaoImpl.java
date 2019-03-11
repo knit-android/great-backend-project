@@ -7,6 +7,7 @@ import pl.edu.pk.knit.android.backend.webservice.model.SecurityRole;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class SecirityRoleDaoImpl implements SecirityRoleDao {
@@ -15,9 +16,14 @@ public class SecirityRoleDaoImpl implements SecirityRoleDao {
 
     @Override
     public SecurityRole getRoleByName(String name) throws EntityNotFoundException {
-        Query query = entityManager.createQuery("from SecurityRole where name=:name");
+        Query query = entityManager.createQuery("from SecurityRole where name=:name", SecurityRole.class);
         query.setParameter("name", name);
 
-        return (SecurityRole)query.getSingleResult();
+        List<SecurityRole> result = query.getResultList();
+
+        if(result.size() == 0)
+            throw new EntityNotFoundException();
+
+        return result.get(0);
     }
 }
