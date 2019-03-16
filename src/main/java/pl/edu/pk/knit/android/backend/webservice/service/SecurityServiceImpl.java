@@ -16,6 +16,6 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public SecurityRole getRoleByName(String name) {
-        return secirityRoleDao.getRoleByName(name);
+        return secirityRoleDao.findDistinctByName(name);
     }
 }
