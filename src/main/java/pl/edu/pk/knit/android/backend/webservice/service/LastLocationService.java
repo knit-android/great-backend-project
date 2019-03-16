@@ -5,5 +5,5 @@ import pl.edu.pk.knit.android.backend.webservice.model.LastLocation;
 public interface LastLocationService {
 
     Iterable<LastLocation> getAllLocations();
-    void saveLocation(LastLocation location);
+    LastLocation saveLocation(LastLocation location);
 }

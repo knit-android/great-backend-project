@@ -21,20 +21,16 @@ public class LastLocationServiceImpl implements LastLocationService {
     }
 
     @Override
-    public void saveLocation(LastLocation newLocation) {
+    public LastLocation saveLocation(LastLocation newLocation) {
 
-        LastLocation targetLocation = lastLocationDao.getFirstByUserId(newLocation.getUserId());
+        LastLocation existingLocation = lastLocationDao.getFirstByUserId(newLocation.getUserId());
 
-        if(targetLocation == null){
-            targetLocation = new LastLocation();
+        if(existingLocation != null){
+            newLocation.setId(existingLocation.getId());
         }
 
-        targetLocation.setUserId(newLocation.getUserId());
-        targetLocation.setLatitude(newLocation.getLatitude());
-        targetLocation.setLongitude(newLocation.getLongitude());
-        targetLocation.setAccuracy(newLocation.getAccuracy());
-        targetLocation.setReportTime(newLocation.getReportTime());
+        newLocation = lastLocationDao.save(newLocation);
 
-        lastLocationDao.save(targetLocation);
+        return newLocation;
     }
 }

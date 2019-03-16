@@ -6,5 +6,5 @@ import pl.edu.pk.knit.android.backend.webservice.model.LastLocation;
 public interface LastLocationDao extends CrudRepository<LastLocation, Long> {
 
 
-    public LastLocation getFirstByUserId(long userId);
+    LastLocation getFirstByUserId(long userId);
 }
