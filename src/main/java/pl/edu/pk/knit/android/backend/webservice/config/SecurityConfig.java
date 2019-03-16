@@ -28,8 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/panel/**").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/panel/register").permitAll()
+                .antMatchers("/panel/**").hasAuthority("USE_WEB_PANEL")
+                .antMatchers("/api/location").hasAuthority("USE_LOCALIZER")
+                .antMatchers("/api/**").hasAuthority("USE_API")
                 .anyRequest().authenticated()
                 .and()
             .requestCache()
