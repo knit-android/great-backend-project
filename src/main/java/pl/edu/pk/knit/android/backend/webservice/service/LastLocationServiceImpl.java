@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.pk.knit.android.backend.webservice.dao.LastLocationDao;
 import pl.edu.pk.knit.android.backend.webservice.model.LastLocation;
 
-public class LocationServiceImpl implements LocationService {
+public class LastLocationServiceImpl implements LastLocationService {
 
 
     @Autowired
@@ -16,7 +16,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void saveLocationForUser(LastLocation location) {
+    public void saveLocation(LastLocation location) {
         lastLocationDao.save(location);
     }
 }
