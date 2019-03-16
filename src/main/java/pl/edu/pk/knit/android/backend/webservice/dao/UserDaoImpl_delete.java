@@ -8,9 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-@Repository
-public class UserDaoImpl implements UserDao {
 
+public class UserDaoImpl_delete {
+    /*
     @Autowired
     private EntityManager entityManager;
 
@@ -46,6 +46,6 @@ public class UserDaoImpl implements UserDao {
     public void save(User newUser) {
         entityManager.persist(newUser);
     }
-
+    */
 
 }

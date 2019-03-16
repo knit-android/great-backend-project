@@ -1,14 +1,11 @@
 package pl.edu.pk.knit.android.backend.webservice.dao;
 
+import org.springframework.data.repository.CrudRepository;
 import pl.edu.pk.knit.android.backend.webservice.model.User;
-import java.util.List;
 
 
-public interface UserDao {
+public interface UserDao extends CrudRepository<User, Long> {
 
-    public List<User> getAllUsers();
-    public User getUserById(long id);
-    public User getUserByName(String username);
+    User findDistinctByUsername(String username);
 
-    public void save(User newUser);
 }
