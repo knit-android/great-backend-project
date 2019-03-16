@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import pl.edu.pk.knit.android.backend.webservice.dao.LastLocationDao;
 import pl.edu.pk.knit.android.backend.webservice.model.LastLocation;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class LastLocationServiceImpl implements LastLocationService {
 
 
@@ -18,7 +21,20 @@ public class LastLocationServiceImpl implements LastLocationService {
     }
 
     @Override
-    public void saveLocation(LastLocation location) {
-        lastLocationDao.save(location);
+    public void saveLocation(LastLocation newLocation) {
+
+        LastLocation targetLocation = lastLocationDao.getFirstByUserId(newLocation.getUserId());
+
+        if(targetLocation == null){
+            targetLocation = new LastLocation();
+        }
+
+        targetLocation.setUserId(newLocation.getUserId());
+        targetLocation.setLatitude(newLocation.getLatitude());
+        targetLocation.setLongitude(newLocation.getLongitude());
+        targetLocation.setAccuracy(newLocation.getAccuracy());
+        targetLocation.setReportTime(newLocation.getReportTime());
+
+        lastLocationDao.save(targetLocation);
     }
 }

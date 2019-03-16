@@ -1,10 +1,12 @@
 package pl.edu.pk.knit.android.backend.webservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,6 +16,8 @@ public class LastLocation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "last_location_id")
+    @JsonIgnore
     private Long id;
 
     @Column
@@ -29,5 +33,5 @@ public class LastLocation {
     private Long userId;
 
     @Column(name = "report_time")
-    private Date reportTime;
+    private LocalDate reportTime;
 }

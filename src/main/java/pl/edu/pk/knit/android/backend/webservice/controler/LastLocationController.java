@@ -9,6 +9,9 @@ import pl.edu.pk.knit.android.backend.webservice.model.User;
 import pl.edu.pk.knit.android.backend.webservice.service.LastLocationService;
 import pl.edu.pk.knit.android.backend.webservice.service.UserService;
 
+import javax.xml.stream.Location;
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/api/location")
 public class LastLocationController {
@@ -23,13 +26,14 @@ public class LastLocationController {
     }
 
     @PostMapping
-    public void saveLocation(@ModelAttribute LastLocation location){
+    public void saveLocation(@ModelAttribute LastLocation newLocation){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByName(auth.getName());
 
-        location.setUserId(user.getUserId());
+        newLocation.setUserId(user.getUserId());
+        newLocation.setReportTime(LocalDate.now());
 
-        locationService.saveLocation(location);
+        locationService.saveLocation(newLocation);
     }
 
 }
