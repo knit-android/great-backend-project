@@ -34,10 +34,7 @@ public class UserServiceImpl implements UserService {
     public User getUserById(long id) {
         Optional<User> userContainer = userDao.findById(id);
 
-        if(userContainer.isPresent())
-            return userContainer.get();
-        else
-            return null;
+        return userContainer.orElse(null);
     }
 
     @Override
@@ -47,20 +44,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveNewUser(UserDto userDto) {
+    public User saveNewUser(UserDto userDto) {
         User newUser = new User();
+
+        String colorString = userDto.getColor().trim().toLowerCase();
+
 
         newUser.setUsername(userDto.getUsername());
         newUser.setPassword(passwordEncoder.encode( userDto.getPassword() ));
 
-        ArrayList<SecurityRole> roles = new ArrayList<SecurityRole>();
+        ArrayList<SecurityRole> roles = new ArrayList<>();
             roles.add(securityService.getRoleByName("ROLE_USER"));
 
         newUser.setSecurityRoles( roles );
         newUser.setEnabled( true );
 
-        userDao.save(newUser);
-
+        return userDao.save(newUser);
     }
 
     @Override

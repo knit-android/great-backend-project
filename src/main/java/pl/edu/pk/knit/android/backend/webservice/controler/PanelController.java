@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pk.knit.android.backend.webservice.model.User;
 import pl.edu.pk.knit.android.backend.webservice.model.UserDto;
+import pl.edu.pk.knit.android.backend.webservice.model.chat.ChatRoom;
+import pl.edu.pk.knit.android.backend.webservice.service.ChatRoomService;
 import pl.edu.pk.knit.android.backend.webservice.service.UserService;
 
 @Controller
@@ -21,6 +23,8 @@ public class PanelController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ChatRoomService chatRoomService;
 
 
     @GetMapping("/register")
@@ -54,7 +58,9 @@ public class PanelController {
             return "registration-form";
         }
         // create user account
-        userService.saveNewUser(userDto);
+        User newUser = userService.saveNewUser(userDto);
+
+        chatRoomService.subscribe(newUser, chatRoomService.getChatRoomByName("Globalny"));
 
         return "registration-confirmation";
     }

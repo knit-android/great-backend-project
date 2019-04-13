@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/panel/**").hasAuthority("USE_WEB_PANEL")
                 .antMatchers("/api/location").hasAuthority("USE_LOCALIZER")
                 .antMatchers("/api/**").hasAuthority("USE_API")
+                .antMatchers("/chat-websocket/**").hasAuthority("USE_CHAT")
                 .anyRequest().authenticated()
                 .and()
             .requestCache()
